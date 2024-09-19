@@ -25,7 +25,7 @@ test('adds 1 + 2 to equal 3', () => {
 
 test('renders correct heading', () => {
   render(<Page />);
-  const heading = screen.getByText("Unser Team");
+  const heading = screen.getByText("Our Team");
   expect(heading).toBeInTheDocument();
 });
 

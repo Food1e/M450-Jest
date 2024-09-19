@@ -14,13 +14,34 @@ jobs:
 
           - name: Install dependencies
             run: npm install
+
+          - name: Upload build artifact
+            uses: actions/upload-artifact@v3
+            with:
+                name: build-artifact
+                path: .next
+
+          - name: Upload dependencies artifact
+            uses: actions/upload-artifact@v3
+            with:
+                name: dependencies-artifact
+                path: node_modules
     tests:
+        needs: build
         runs-on: ubuntu-22.04
         steps:
-          - name: Checkout repository
-            uses: actions/checkout@v3
+          - name: Download build artifacts
+            uses: actions/download-artifact@v3
+            with:
+                name: build-artifact
+                path: .next
 
-          - name: Install dependencies and run tests
+          - name: Download dependencies artifact
+            uses: actions/download-artifact@v3
+            with:
+                name: dependencies-artifact
+                path: node_modules
+
+          - name: Run tests
             run:
-                npm install
                 npm test

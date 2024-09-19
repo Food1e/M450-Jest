@@ -1,0 +1,34 @@
+name: Pipeline with Jest Test
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-22.04
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v3
+
+          - name: Install dependencies
+            run: npm install
+
+          - name: Cache dependencies
+            uses: actions/cache@v3
+            with:
+                path: node_modules
+                key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+                restore-keys: |
+                    ${{ runner.os }}-node-
+    tests:
+        needs: build
+        runs-on: ubuntu-22.04
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v3            
+
+          - name: Run tests
+            run:
+                npm test

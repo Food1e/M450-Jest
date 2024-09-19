@@ -5,10 +5,6 @@ import Page from './page';
 import { sum } from './page';
 import { TeamMember } from "./page";
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
-});
-
 const teamMembers = [
   { firstname: 'Julia', lastname: 'Meier', position: 'Recruiting Specialist', age: 29, gender: 'female' },
   { firstname: 'Michael', lastname: 'Schneider', position: 'HR Manager', age: 45, gender: 'male' },
@@ -23,11 +19,18 @@ const mappedTeamMembers = teamMembers.map((member, index) => (
     member={member}
   />
 ))
+test('adds 1 + 2 to equal 3', () => {
+  expect(sum(1, 2)).toBe(3);
+});
 
-test('renders Home heading and About link', () => {
+test('renders correct heading', () => {
   render(<Page />);
-  const heading = screen.getByText(/Unser\s+Team/i);
-  const map = screen.mappedTeamMembers;
+  const heading = screen.getByText("Unser Team");
   expect(heading).toBeInTheDocument();
+});
+
+test('renders mapped TeamMembers', () => {
+  render(<Page />);
+  const map = screen.mappedTeamMembers;
   expect(map).toBe();
 });

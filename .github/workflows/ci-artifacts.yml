@@ -1,4 +1,4 @@
-name: Pipeline with Jest Test
+name: Pipeline with Jest Test (Artifacts)
 
 on:
     push:
